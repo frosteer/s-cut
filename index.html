@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S-Cut — You Record. We Make It Worth Posting.</title>
+<meta name="description" content="Human-edited short-form video for solo creators. Upload your video, get a Reel that's ready to post. From $15.">
+<meta name="theme-color" content="#ff4a2b">
+<style>
+:root{--bg:#0b0b0d;--bg2:#131316;--card:#17171b;--line:#2a2a31;--text:#f5f5f7;--muted:#9a9aa6;--accent:#ff4a2b;--accent2:#ff7a45;--r:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+section{padding:90px 0}
+.alt{background:var(--bg2)}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
+h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:800}
+h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:14px}
+h3{font-size:1.2rem;margin-bottom:6px}
+.grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:1.1rem;max-width:620px}
+.center{text-align:center}.center .lead{margin:0 auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:999px;font-weight:600;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;font-size:1rem;transition:.2s}
+.btn:hover{border-color:#555}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 8px 30px rgba(255,74,43,.3)}
+.btn.primary:hover{transform:translateY(-2px);background:#ff5f43}
+nav{position:sticky;top:0;z-index:50;background:rgba(11,11,13,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:800;font-size:1.3rem}.logo b{color:var(--accent)}
+.links{display:flex;gap:26px;align-items:center;font-size:.95rem;color:var(--muted)}
+.links a:hover{color:var(--text)}
+.links .btn{padding:9px 18px;font-size:.9rem;color:#fff}
+.burger{display:none;background:none;border:0;color:var(--text);font-size:1.6rem;cursor:pointer}
+/* hero */
+.hero{padding:80px 0 90px;position:relative;overflow:hidden;background:radial-gradient(55% 60% at 80% 40%,rgba(255,74,43,.22),transparent 70%),radial-gradient(40% 40% at 0 0,rgba(255,122,69,.08),transparent 70%)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.hero p.lead{margin:22px 0 32px;font-size:1.2rem}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.trio{display:flex;margin-top:44px;border-top:1px solid var(--line);padding-top:22px}
+.trio div{flex:1;padding-right:16px}
+.trio div+div{padding-left:20px;border-left:1px solid var(--line)}
+.trio b{display:block;font-size:1.25rem;font-weight:800}
+.trio span{font-size:.9rem;color:var(--muted);line-height:1.45;display:block;margin-top:2px}
+.stage{position:relative;display:flex;justify-content:center;padding:10px 0}
+.phone{width:280px;aspect-ratio:9/16;border-radius:40px;background:#050506;padding:9px;border:1px solid #33333b;box-shadow:0 0 0 1px #000,0 40px 90px -10px rgba(255,74,43,.35),0 30px 60px rgba(0,0,0,.6);position:relative}
+.screen{height:100%;border-radius:32px;overflow:hidden;position:relative;background:radial-gradient(circle at 50% 33%,#c88a6c 0 12%,transparent 12.5%),radial-gradient(ellipse at 50% 76%,#2f3b5c 0 30%,transparent 30.5%),linear-gradient(#3a2f3d,#1c1a24)}
+.screen::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.7))}
+.bar{position:absolute;top:14px;left:16px;right:16px;height:4px;border-radius:9px;background:rgba(255,255,255,.3);z-index:2;overflow:hidden}
+.bar::after{content:"";position:absolute;inset:0;background:#fff;transform-origin:left;animation:prog 6s linear infinite}
+@keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.cap{position:absolute;z-index:2;left:14px;right:14px;bottom:58px;text-align:center;font-weight:900;font-size:1.65rem;line-height:1.25;color:#fff;text-transform:uppercase;letter-spacing:-.01em}
+.cap span{display:inline-block;padding:0 7px;border-radius:7px;animation:hl 6s infinite}
+.cap span:nth-child(2){animation-delay:1.5s}.cap span:nth-child(3){animation-delay:3s}.cap span:nth-child(4){animation-delay:4.5s}
+@keyframes hl{0%,24%{background:var(--accent)}25%,100%{background:transparent}}
+.chip{position:absolute;z-index:3;background:rgba(23,23,27,.92);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:12px;padding:9px 14px;font-size:.85rem;font-weight:600;display:flex;gap:8px;align-items:center;box-shadow:0 12px 30px rgba(0,0,0,.4);white-space:nowrap}
+.chip::before{content:"✓";color:var(--accent);font-weight:800}
+.chip.a{left:-6px;top:16%}.chip.b{right:-14px;top:46%}.chip.c{left:2px;bottom:12%}
+/* human */
+.human{max-width:820px;margin:0 auto;text-align:center}
+.human h2 span{color:var(--accent)}
+/* cards */
+.grid{display:grid;gap:18px;margin-top:44px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.card p{color:var(--muted);font-size:.95rem}
+.ico{font-size:1.5rem;margin-bottom:12px}
+.card.bad h3{color:var(--muted)}
+.card.good{border-color:rgba(255,74,43,.5);background:linear-gradient(180deg,rgba(255,74,43,.08),var(--card))}
+.flow{list-style:none;margin-top:12px}
+.flow li{padding:7px 0;color:var(--muted);font-size:.95rem}
+.flow li::before{content:"↓ ";color:#555}.flow li:first-child::before{content:""}
+.good .flow li{color:var(--text);font-weight:500}
+.checks{padding:0;list-style:none;margin:10px 0 0}
+.checks li{padding:5px 0 5px 24px;position:relative;color:var(--muted);font-size:.95rem}
+.checks li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700}
+.rows{display:grid;gap:18px;margin-top:44px}
+.row{display:grid;grid-template-columns:70px 1fr;gap:12px;align-items:start}
+.num{font-weight:800;font-size:1.8rem;color:var(--accent);line-height:1.1}
+.checks.two{columns:2;column-gap:36px;margin:14px 0 0}
+.checks.two li{break-inside:avoid;color:var(--text)}
+.qnote{background:rgba(255,74,43,.08);border-left:3px solid var(--accent);border-radius:8px;padding:12px 14px;font-size:.88rem;color:var(--muted);margin:0 0 22px;line-height:1.5}
+.qnote b{color:var(--text)}
+.nope li::before{content:"✕";color:var(--muted)}
+.saved{margin-top:16px;color:var(--accent)!important;font-weight:600}
+.step{position:relative;padding-top:58px}
+.step::before{counter-increment:s;content:"0" counter(s);position:absolute;top:22px;left:26px;font-weight:800;font-size:1.5rem;color:var(--accent)}
+.price{display:flex;flex-direction:column}
+.price.pop{border-color:var(--accent);position:relative;box-shadow:0 0 0 1px var(--accent),0 20px 60px rgba(255,74,43,.15)}
+.badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;padding:4px 14px;border-radius:99px;white-space:nowrap}
+.amt{font-size:3rem;font-weight:800;margin:14px 0 2px}
+.amt small{font-size:1rem;color:var(--muted);font-weight:500}
+.sub{color:var(--muted);font-size:.9rem}
+.price .checks{margin:18px 0 26px;flex:1}
+.price .btn{width:100%}
+.save{color:var(--accent);font-weight:600;font-size:.9rem}
+.which{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.which a{border:1px solid var(--line);border-radius:var(--r);padding:20px;transition:.2s}
+.which a:hover{border-color:var(--accent)}
+.which small{color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:36px}
+.tags span{border:1px solid var(--line);background:var(--card);padding:10px 18px;border-radius:99px;font-size:.95rem}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px}
+.vid{aspect-ratio:9/16;max-height:480px;margin:10px auto 0;border-radius:var(--r);border:1px dashed #444;display:flex;align-items:center;justify-content:center;color:var(--muted);background:var(--card);overflow:hidden}
+.vid video,.vid iframe{width:100%;height:100%;border:0;object-fit:cover}
+.ba h3{text-align:center}
+details{border-bottom:1px solid var(--line);padding:20px 0}
+summary{cursor:pointer;font-weight:600;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--accent);font-size:1.4rem;line-height:1}
+details[open] summary::after{content:"−"}
+details p{color:var(--muted);margin-top:10px}
+.faq{max-width:760px;margin:36px auto 0}
+.final{text-align:center;background:radial-gradient(60% 80% at 50% 100%,rgba(255,74,43,.2),transparent 70%)}
+.final .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:.9rem;text-align:center}
+.reveal{opacity:0;transform:translateY(24px);transition:.7s}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:900px){
+section{padding:64px 0}
+.hero .wrap{grid-template-columns:1fr;gap:56px}
+.hero{text-align:left}
+.g2,.g3,.which,.ba{grid-template-columns:1fr}
+.row{grid-template-columns:1fr}.checks.two{columns:1}
+.links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--bg);padding:20px;border-bottom:1px solid var(--line);gap:18px}
+.links.open{display:flex}
+.burger{display:block}
+.trio{flex-direction:column;gap:14px}.trio div+div{border-left:0;padding-left:0}
+.chip.a{left:0}.chip.b{right:0}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.cap span:first-child{background:var(--accent)}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo">S<b>-</b>Cut</a>
+    <button class="burger" aria-label="Menu">☰</button>
+    <div class="links">
+      <a href="#how">How it works</a>
+      <a href="#why">Why S-Cut</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#pricing" class="btn primary">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Perfect for solo content creators</span>
+      <h1>You Record.<br><span class="grad">We Make It Worth Posting.</span></h1>
+      <p class="lead">Just upload your video. A real person edits it, and you get back a Reel or Short that's ready to post.</p>
+      <div class="cta">
+        <a href="#pricing" class="btn primary">Get My Video Edited</a>
+        <a href="#how" class="btn">How it works</a>
+      </div>
+      <div class="trio">
+        <div><b>Simple</b><span>Upload your video. That's your whole job.</span></div>
+        <div><b>Quick</b><span>Back in 3–5 working days.</span></div>
+        <div><b>Easy</b><span>Open it, check it, post it.</span></div>
+      </div>
+    </div>
+    <div class="stage" aria-hidden="true">
+      <div class="phone"><div class="screen"><div class="bar"></div>
+        <div class="cap"><span>nobody</span> <span>tells</span> <span>you</span> <span>this</span></div></div></div>
+      <div class="chip a">Captions added</div>
+      <div class="chip b">Audio enhanced</div>
+      <div class="chip c">Colors corrected</div>
+    </div>
+  </div>
+</header>
+
+<section class="alt" id="human">
+  <div class="wrap human reveal">
+    <span class="eyebrow">The S-Cut difference</span>
+    <h2>Human edit. Human touch.<br><span>This is why it works.</span></h2>
+    <p class="lead" style="margin:0 auto">We watch your video, understand what you're really saying, and find the idea that will hit your audience hardest. Then we build the whole edit around it.</p>
+    <div class="grid g2" style="text-align:left">
+      <div class="card bad">
+        <h3>AI cuts from the transcript</h3>
+        <ul class="checks">
+          <li>Reads your words, but can't see your emotion</li>
+          <li>Treats a meaningful silence as dead air</li>
+          <li>Can't tell which idea matters most to your audience</li>
+          <li>Has no feel for the pace a good story needs</li>
+        </ul>
+      </div>
+      <div class="card good">
+        <h3>A human editor watches you</h3>
+        <ul class="checks">
+          <li>Understands your core idea and keeps it front and center</li>
+          <li>Highlights the moment with the biggest impact</li>
+          <li>Keeps the pause that builds emotion</li>
+          <li>Cuts at a pace that makes your audience feel it</li>
+        </ul>
+      </div>
+    </div>
+    <p class="lead" style="margin:36px auto 0;color:var(--text);font-weight:600">Great storytelling lives in the pauses and the pacing. That's the part software can't feel, and the part we never skip.</p>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="wrap center reveal">
+    <span class="eyebrow">The problem</span>
+    <h2>You sat down to edit one quick video.<br>Now it's midnight.</h2>
+    <p class="lead">You're still dragging the playhead back and forth. Nudging a caption half a second. Checking it lands at exactly the right moment. Fixing the audio, then the color, then the caption again. A whole evening gone for a 60-second video. Is it worth your time?</p>
+    <div class="card" style="max-width:520px;margin:36px auto 0;text-align:left">
+      <h3>In those hours, you could have:</h3>
+      <ul class="checks">
+        <li>Replied to the clients waiting on you</li>
+        <li>Worked on the offer that grows your business</li>
+        <li>Eaten dinner with your family, phone down</li>
+        <li>Gone to the gym, or simply rested</li>
+      </ul>
+    </div>
+    <p class="lead" style="margin:32px auto 0">You're great at what you do. Editing was never your business, but it keeps eating the hours your business needs.</p>
+    <p class="lead" style="margin:18px auto 0;color:var(--text);font-weight:600">Leave the editing hell to S-Cut. Send us your content, and we'll send back a video that's ready to post.</p>
+  </div>
+</section>
+
+<section class="alt" id="why">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">But can't AI do this?</span>
+      <h2>It can. Then you spend hours editing the edit.</h2>
+      <p class="lead" style="max-width:700px">Ask AI to fix one small thing, and it changes three others. It doesn't understand what you meant, so you rephrase, then rephrase again, hoping this is the prompt that finally works. Come on, you didn't sign up to become a prompt expert, did you?</p>
+    </div>
+    <div class="grid g2 reveal">
+      <div class="card bad">
+        <h3>Doing it with AI</h3>
+        <ul class="flow">
+          <li>Upload your video and get your clips back</li>
+          <li>Sit through all of them, only to find maybe two are usable</li>
+          <li>Your best moment, a long pause before an honest answer, was skipped</li>
+          <li>Clip 7 starts mid-sentence and cuts off right before the point</li>
+          <li>The captions misspell your name and your industry terms</li>
+          <li>Prompt: "Make it a bit shorter." It cuts the punchline</li>
+          <li>Prompt: "Keep the punchline." Now the captions are out of sync</li>
+          <li>Reword the prompt a fourth time. Now it heads in a completely different direction and gives you a different video altogether</li>
+        </ul>
+        <p style="margin-top:18px;color:var(--text)">If you're spending this long editing the edit, you might as well cut it by hand. At least you'd lose less hair.</p>
+      </div>
+      <div class="card good">
+        <h3>With S-Cut</h3>
+        <ul class="flow"><li>Record</li><li>Send your footage</li><li>S-Cut edits it</li><li>Ready to post</li></ul>
+        <p style="margin-top:18px">No prompts, no re-rolling the dice, no clips cut off mid-thought. We make the editorial calls: context, delivery, pacing, emotion and story.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="what">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">What you get</span>
+      <h2>Every video is edited and checked by a person.</h2>
+    </div>
+    <div class="grid g3 reveal">
+      <div class="card"><div class="ico">✂️</div><h3>Story-driven editing</h3><p>We decide what stays and what goes based on context, pacing and delivery.</p></div>
+      <div class="card"><div class="ico">💬</div><h3>Retention captions</h3><p>Word-timed captions with emphasis that match how you speak.</p></div>
+      <div class="card"><div class="ico">🎙️</div><h3>Studio-quality voice</h3><p>Cleaned up and balanced so you sound clear and consistent.</p></div>
+      <div class="card"><div class="ico">🎨</div><h3>Visual polish</h3><p>Exposure, color and skin tones corrected for a clean, consistent look.</p></div>
+      <div class="card"><div class="ico">📱</div><h3>9:16 formatting</h3><p>Sized for Instagram Reels, TikTok and YouTube Shorts.</p></div>
+      <div class="card"><div class="ico">✅</div><h3>Human QC</h3><p>A person reviews every video before delivery. If B-roll helps, we add it free.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="demo">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">See the difference</span>
+      <h2>Raw recording → ready to post</h2>
+    </div>
+    <div class="ba reveal">
+      <div><h3>Before</h3>
+        <!-- Replace with: <video src="before.mp4" controls playsinline></video> -->
+        <div class="vid">Add BEFORE video</div></div>
+      <div><h3>After</h3>
+        <!-- Replace with: <video src="after.mp4" controls playsinline></video> -->
+        <div class="vid">Add AFTER video</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>Four steps. Your part takes minutes.</h2>
+      <p class="lead">You do the quick parts. We do all the work in the middle.</p>
+    </div>
+    <div class="rows reveal">
+      <div class="card row"><div class="num">01</div><div><h3>Choose a package and pay</h3><p>Pick the one that fits your footage and check out online. No quotes, no back-and-forth.</p></div></div>
+      <div class="card row"><div class="num">02</div><div><h3>Send your footage</h3><p>Share a Google Drive link or wherever your files live. That's your last task until it's done.</p></div></div>
+      <div class="card row good"><div class="num">03</div><div><h3>We edit</h3><p>Here's everything we handle on our side, so you don't have to:</p>
+        <ul class="checks two">
+          <li>Review your footage and find the strongest moments</li>
+          <li>Make the editorial calls on context, pacing and story</li>
+          <li>Cut the dead air and rough spots</li>
+          <li>Add word-timed retention captions with emphasis</li>
+          <li>Enhance and balance your voice for studio-quality audio</li>
+          <li>Correct exposure, color and skin tones</li>
+          <li>Add copyright-free B-roll where it helps</li>
+          <li>Format in 9:16 for Reels, TikTok and Shorts</li>
+          <li>Check every video by hand before delivery</li>
+        </ul>
+        <p class="saved">Hours of work, handled. You skip all of it.</p></div></div>
+      <div class="card row"><div class="num">04</div><div><h3>Review and post</h3><p>Your finished video arrives in 3–5 working days. Give it a look, then post it.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="pricing">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>Simple pricing. Pay per Reel.</h2>
+      <p class="lead">No subscriptions and no quotes. Just choose a package and send your footage.</p>
+    </div>
+    <div class="grid g3 reveal">
+      <div class="card price">
+        <h3>Single Reel</h3><p class="sub">For when you only need one.</p>
+        <div class="amt">$15<small> / Reel</small></div>
+        <ul class="checks">
+          <li>1 short-form video</li><li>Source footage up to 15 min</li><li>Story-driven editing</li><li>Retention captions</li><li>Voice enhancement &amp; visual polish</li><li>9:16 formatting</li><li>Human quality control</li><li>1 revision · 3–5 working days</li>
+        </ul>
+        <a class="btn" data-plan="single" href="#">Get 1 Reel — $15</a>
+      </div>
+      <div class="card price pop">
+        <span class="badge">Best value</span>
+        <h3>10-Reel Pack</h3><p class="sub">Send 10 short videos, get 10 Reels you can post all month.</p>
+        <div class="amt">$99<small> / 10 Reels</small></div>
+        <p class="save">$9.90 per Reel · save $51</p>
+        <ul class="checks">
+          <li>10 short-form videos</li><li>Each source up to 15 min</li><li>Everything in Single Reel</li><li>1 revision per video</li><li>3–5 working days</li>
+        </ul>
+        <a class="btn primary" data-plan="pack" href="#">Get 10 Reels — $99</a>
+      </div>
+      <div class="card price">
+        <h3>Long Video Pack</h3><p class="sub">Send one long video. We find the best moments and turn them into Reels.</p>
+        <div class="amt">$30<small> / up to 3 Reels</small></div>
+        <ul class="checks">
+          <li>Source footage 16–60 min</li><li>We find the strongest moments</li><li>Up to 3 Reels</li><li>Everything in Single Reel</li><li>1 revision per video</li><li>3–5 working days</li>
+        </ul>
+        <p class="qnote"><b>Quality over quantity.</b> You may get 1, 2 or 3 Reels from your recording. We only deliver Reels that are impactful and meaningful, and we won't force extra ones out of your footage.</p>
+        <a class="btn" data-plan="long" href="#">Get Long Video Pack — $30</a>
+      </div>
+    </div>
+    <div class="which reveal">
+      <a href="#pricing"><b>Short video?</b><br><small>Single Reel — one recording, one Reel.</small></a>
+      <a href="#pricing"><b>10 recordings?</b><br><small>10-Reel Pack — send together, save money.</small></a>
+      <a href="#pricing"><b>Long video?</b><br><small>Long Video Pack — we find the best moments for you.</small></a>
+    </div>
+    <p class="center sub" style="margin-top:28px">Rush delivery +$10. One revision is included for caption fixes, timing tweaks and small changes. A completely different clip or edit counts as a new job.</p>
+    <p class="center" style="margin-top:22px;font-weight:600">Got questions? No problem, you can contact us <a href="#" data-contact style="color:var(--accent);text-decoration:underline">here</a>.</p>
+  </div>
+</section>
+
+<section id="who">
+  <div class="wrap center reveal">
+    <span class="eyebrow">Who it's for</span>
+    <h2>Built for solo content creators</h2>
+    <p class="lead">You record, post and run your business, all by yourself. S-Cut takes the editing off your plate and gives you that time back.</p>
+    <div class="tags">
+      <span>Coaches</span><span>Consultants</span><span>Educators</span><span>Business &amp; finance creators</span><span>Fitness creators</span><span>Real estate pros</span><span>Personal-brand entrepreneurs</span>
+    </div>
+    <p class="lead" style="margin-top:30px">No editing software to learn. Just record something worth sharing, and get back clean, professional videos that sound like you and are ready to post.</p>
+  </div>
+</section>
+
+<section class="alt" id="faq">
+  <div class="wrap">
+    <div class="center reveal"><span class="eyebrow">FAQ</span><h2>Questions, answered</h2></div>
+    <div class="faq reveal">
+      <details><summary>Is S-Cut right for me?</summary>
+        <p style="color:var(--text);font-weight:600">Yes, if:</p>
+        <ul class="checks"><li>You're a solo creator or personal brand</li><li>Your content is mostly talking-head style</li><li>You want a clean, minimalist and professional look</li><li>You'd rather spend your time on your business than on editing</li></ul>
+        <p style="color:var(--text);font-weight:600;margin-top:16px">No, if:</p>
+        <ul class="checks nope"><li>You want heavy motion graphics or flashy animation</li></ul>
+      </details>
+      <details><summary>Do I need to tell you which part to use?</summary><p>Not for short recordings. Just send them and we'll edit. With the Long Video Pack, we watch the footage and pick the strongest moments for you.</p></details>
+      <details><summary>How long will my Reel be?</summary><p>Most Reels run under 60 seconds. We make clips for Instagram Reels, TikTok and YouTube Shorts, and the final length depends on what makes the clip work best.</p></details>
+      <details><summary>Do you add B-roll?</summary><p>Yes, if it genuinely improves the video. We use copyright-free B-roll at no extra charge.</p></details>
+      <details><summary>Do you add fancy animations?</summary><p>Our standard edit is clean, minimalist and professional. We mostly use subtle fade animations at carefully adjusted speeds. Trust us: you don't need flashy animation to grow with short-form content.</p></details>
+      <details><summary>Do you add motion graphics?</summary><p>No. We don't create motion graphics from scratch. If you want graphics flying in from the left and right, S-Cut isn't the right fit. We focus on minimalist, clean and professional short-form content.</p></details>
+      <details><summary>Can I send footage from Google Drive?</summary><p>Yes. Send a Drive link or any shared folder where your footage lives.</p></details>
+      <details><summary>Do you use AI?</summary><p>No. Every video is 100% human edited and 100% human reviewed. A real person makes every decision, from the first cut to the final check.</p></details>
+      <details><summary>Can you guarantee my Reel will go viral?</summary><p>No, and nobody honestly can. What we do guarantee is a professional edit, human review, and a video that's ready to post.</p></details>
+      <details><summary>What if I have over 60 minutes of footage?</summary><p>The Long Video Pack covers up to 60 minutes. For longer recordings, <a href="#" data-contact style="color:var(--accent)">contact us</a> and we'll find the best option.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap reveal">
+    <h2>Ready to stop editing?</h2>
+    <p class="lead" style="margin:0 auto">You've got the ideas and the expertise. We'll turn your recordings into content you're proud to post.</p>
+    <div class="cta">
+      <a class="btn primary" data-plan="single" href="#">Get My First Reel — $15</a>
+      <a class="btn" data-plan="pack" href="#">10 Reels — $99</a>
+      <a class="btn" data-plan="long" href="#">Get Long Video Pack — $30</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo" style="margin-bottom:6px">S<b>-</b>Cut</div>
+    Short-form editing for creators who'd rather create than edit.<br>
+    <a href="#" data-contact style="color:var(--accent)">Contact</a> · © <span id="yr"></span> S-Cut
+  </div>
+</footer>
+
+<script>
+// ====== EDIT THESE ======
+const CONFIG = {
+  email: "hello@your-domain.com",
+  links: {
+    single: "https://your-payment-link/single-reel",
+    pack:   "https://your-payment-link/10-reel-pack",
+    long:   "https://your-payment-link/long-to-short"
+  }
+};
+// ========================
+document.querySelectorAll("[data-plan]").forEach(a => a.href = CONFIG.links[a.dataset.plan]);
+document.querySelectorAll("[data-contact]").forEach(a => a.href = "mailto:" + CONFIG.email);
+document.getElementById("yr").textContent = new Date().getFullYear();
+const menu = document.querySelector(".links");
+document.querySelector(".burger").onclick = () => menu.classList.toggle("open");
+menu.querySelectorAll("a").forEach(a => a.onclick = () => menu.classList.remove("open"));
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+}), { threshold: .12 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
